@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #f6fafb;
+  overflow-x: hidden;
+  font-family: "Open Sans Semibold" !important;
+}
+@font-face {
+  font-family: "Open Sans Semibold";
+  src: url(assets/font/OpenSans-Semibold.ttf) format("opentype");
+}
+@font-face {
+  font-family: "Open Sans Semibold";
+  src: url(assets/font/OpenSans-Regular.ttf) format("opentype");
+}

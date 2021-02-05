@@ -1,0 +1,198 @@
+<div class="row">
+  <div class="col-1 sidenav px-0">
+    <app-side-nav></app-side-nav>
+  </div>
+  <div class="col-md-11 col-11 HomeScreen px-0">
+    <div class="header">
+      <img
+        src="./assets/images/logoHome.png"
+        alt="Logo_image"
+        class="menuImage"
+      />
+      <div class="profileImg">
+        <img
+          src="./assets/images/sync.png"
+          alt="Logo_image"
+          class="syncImage"
+        />
+        <img
+          src="./assets/images/profile.png"
+          title="logout"
+          (click)="logout()"
+          alt="Logo_image"
+          class="profileImage"
+        />
+      </div>
+    </div>
+    <div class="siteScreen">
+      <div class="siteHeading">
+        <h3>Sites</h3>
+      </div>
+      <h4>
+        Social Media
+        <button *ngIf="groupList?.length">{{ groupList.length }}</button>
+      </h4>
+
+      <!-- <select>
+          <option value="sm" selected><h3>Social Media</h3></option>
+          <option value="saab"><h3>Bank Accounts</h3></option>
+          <option value="vw"><h3>Wallets</h3></option>
+          <option value="audi" ><h3>private</h3></option>
+        </select> -->
+
+      <div class="search addBtn">
+        <input [(ngModel)]="searchModel" type="text" placeholder="Search" />
+
+        <img
+          src="./assets/images/search.png"
+          alt="Logo_image"
+          class="searchImg"
+        />
+        <img
+          src="./assets/images/add_btn.png"
+          data-toggle="modal"
+          data-target="#myModal"
+          (click)="cancel()"
+          alt="AddBtn_image"
+          class="addBtnImage"
+        />
+      </div>
+      <div class="siteDetails row">
+        <div
+          class="cards col-md-3 m-4 px-0"
+          *ngFor="let item of groupList | myfilter: searchModel"
+        >
+          <div class="siteLogo">
+            <img [src]="item?.siteLogo" alt="" class="siteLogoImg" />
+          </div>
+          <div class="siteData">
+            <p class="mb-0 siteName">{{ item.siteName }}</p>
+            <div class="row">
+              <div class="col-md-1">
+                <img
+                  src="./assets/images/Bitmap (1).png"
+                  alt="copy_image"
+                  class="copyImg"
+                />
+              </div>
+              <div class="col-md-9 pr-0">
+                <p class="copyPassword" (click)="copyMessage(item.password)">
+                  Copy Password
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-center mt-3 mb-0 siteUrl">
+            <a href="https://{{ item.url }}">{{ item.url }}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Site</h4>
+
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-block" [formGroup]="addSiteForm">
+          <div class="form-group">
+            <label for="url">Url</label>
+            <input
+              type="text"
+              formControlName="url"
+              class="form-control email"
+              (keydown.space)="$event.preventDefault()"
+            />
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="url">Site Name</label>
+                <input
+                  type="text"
+                  formControlName="siteName"
+                  class="form-control email"
+                  (keydown.space)="$event.preventDefault()"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="url">Sector/Folder</label>
+                <input
+                  type="text"
+                  formControlName="sector"
+                  class="form-control email"
+                  (keydown.space)="$event.preventDefault()"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="url">User Name</label>
+                <input
+                  type="text"
+                  formControlName="userName"
+                  class="form-control email"
+                  (keydown.space)="$event.preventDefault()"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="url">Site Password</label>
+                <input
+                  type="password"
+                  formControlName="password"
+                  class="form-control email"
+                  (keydown.space)="$event.preventDefault()"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="url">Notes</label>
+            <textarea
+              type="text"
+              formControlName="notes"
+              class="form-control email"
+              (keydown.space)="$event.preventDefault()"
+            ></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer pt-1">
+        <button
+          type="button"
+          class="btn btn-default reset-btn"
+          (click)="cancel()"
+          data-dismiss="modal"
+        >
+          <div class="reset">Reset</div>
+        </button>
+
+        <button
+          type="button"
+          (click)="addSite(addSiteForm)"
+          data-dismiss="modal"
+          class="btn btn-default save-btn"
+        >
+          <div class="save">Save</div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
